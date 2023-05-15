@@ -58,7 +58,7 @@ runs:
       with:
         commit_message: Update ${{ inputs.artifact_path }}
         commit_author: GitHub Actions <actions@github.com>
-      working-directory: ${{ inputs.working_directory }}
+        repository: ${{ inputs.working_directory }}
 
 branding:
   icon: "file"
