@@ -46,11 +46,11 @@ runs:
       run: |
         sed \
           -e "1i # ${{ inputs.title }}" /tmp/out.log \
-          -e '2i ' \
+          -e '2i \\' \
           -e '3i ```bash' \
           -e '$a ```' \
+          -e '$a \\' \
           > ${{ inputs.artifact_path }}
-        echo >> ${{ inputs.artifact_path }}
       shell: bash
       working-directory: ${{ inputs.working_directory }}
     - name: Push
