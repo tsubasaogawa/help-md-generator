@@ -68,7 +68,7 @@ runs:
           exit 0
         fi
         echo "committed=1" >> $GITHUB_OUTPUT
-        git push origin @
+        git push
       shell: bash
 
 branding:
