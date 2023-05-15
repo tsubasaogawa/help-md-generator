@@ -26,7 +26,7 @@ inputs:
 outputs:
   committed:
     description: "1 if file is committed"
-    value: ${{ steps.push.outputs.committed }}
+    value: "1" # ${{ steps.push.outputs.committed }}
 
 runs:
   using: "composite"
@@ -53,25 +53,11 @@ runs:
           > ${{ inputs.artifact_path }}
       shell: bash
       working-directory: ${{ inputs.working_directory }}
-    - name: Push
-      id: push
-      env:
-        GHA_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
-        GHA_NAME: "github-actions[bot]"
-      run: |
-        set -e
-        git config --local user.email $GHA_EMAIL
-        git config --local user.name $GHA_NAME
-        git add ${{ inputs.artifact_path }}
-
-        if ! git commit -m 'Update ${{ inputs.artifact_path }}'; then
-          echo "committed=0" >> $GITHUB_OUTPUT
-          exit 0
-        fi
-
-        echo "committed=1" >> $GITHUB_OUTPUT
-        git push origin @
-      shell: bash
+    - name: Push generated atom file
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Update ${{ inputs.artifact_path }}
+        commit_author: GitHub Actions <actions@github.com>
       working-directory: ${{ inputs.working_directory }}
 
 branding:
