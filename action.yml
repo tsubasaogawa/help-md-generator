@@ -44,13 +44,13 @@ runs:
       shell: bash
     - name: Generate md
       run: |
-        cat << EOA > ${{ inputs.artifact_path }}
-        # ${{ inputs.title }}
-
-        ```bash
-        $(cat /tmp/out.log)
-        ```
-        EOA
+        sed \
+          -e "1i # ${{ inputs.title }}" /tmp/out.log \
+          -e '2i' \
+          -e '3i ```bash' \
+          -e '$a ```' \
+          -e '$a' \
+          > ${{ inputs.artifact_path }}
       shell: bash
       working-directory: ${{ inputs.working_directory }}
     - name: Push
