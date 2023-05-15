@@ -1,0 +1,71 @@
+name: "help.md generator"
+description: "Generate help.md and push to GitHub"
+author: tsubasaogawa
+
+inputs:
+  binary_path:
+    description: "Target binary path (ex. /bin/cat)"
+    required: true
+  cmd:
+    description: "Additional commands for binary (ex. --help)"
+    required: false
+    default: "--help"
+  title:
+    description: "Markdown title"
+    required: false
+    default: "Help"
+  artifact_path:
+    description: "Path of a generated artifact"
+    required: false
+    default: "help.md"
+
+outputs:
+  committed:
+    description: "1 if file is committed"
+    value: ${{ steps.push.outputs.committed }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Validation
+      run: |
+        which ${{ inputs.binary_path }}
+        test ${{ inputs.title }} != ""
+        test ${{ inputs.artifact_path }} != ""
+      shell: bash
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Run binary
+      run: ${{ inputs.binary_path }} ${{ inputs.cmd }} > /tmp/out.log
+      shell: bash
+    - name: Generate md
+      run: |
+        cat << EOA > {{ inputs.artifact_path }}
+        # ${{ inputs.title }}
+
+        ```bash
+        $(cat /tmp/out.log)
+        ```
+      shell: bash
+    - name: Push
+      id: push
+      env:
+        GHA_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
+        GHA_NAME: "github-actions[bot]"
+      run: |
+        git config --local user.email $GHA_EMAIL
+        git config --local user.name $GHA_NAME
+        git add ${{ inputs.artifact_path }}
+
+        if ! git commit -m 'Update ${{ inputs.artifact_path }}'; then
+          echo "committed=0" >> $GITHUB_OUTPUT
+          exit 0
+        fi
+
+        echo "committed=1" >> $GITHUB_OUTPUT
+        git push origin @
+      shell: bash
+
+branding:
+  icon: "file"
+  color: "purple"
