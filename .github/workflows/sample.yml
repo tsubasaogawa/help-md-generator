@@ -1,6 +1,8 @@
 name: "Test for help.md generator"
 on:
-  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/sample.yml"
 
 jobs:
   generate:
