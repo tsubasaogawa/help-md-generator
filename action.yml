@@ -33,10 +33,10 @@ runs:
   steps:
     - name: Validation
       run: |
-        which ${{ inputs.binary_path }}
-        test ${{ inputs.title }} != ""
-        test ${{ inputs.artifact_path }} != ""
-        test -e ${{ inputs.working_directory }}
+        which "${{ inputs.binary_path }}"
+        test "${{ inputs.title }}" != ""
+        test "${{ inputs.artifact_path }}" != ""
+        test -e "${{ inputs.working_directory }}"
       shell: bash
     - name: Run binary
       run: ${{ inputs.binary_path }} ${{ inputs.cmd }} > /tmp/out.log
