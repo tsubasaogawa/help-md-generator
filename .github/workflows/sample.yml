@@ -1,5 +1,6 @@
 name: "Test for help.md generator"
-on: [push]
+on:
+  workflow_dispatch:
 
 jobs:
   generate:
@@ -8,7 +9,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Test
-        uses: tsubasaogawa/help-md-generator@latest
+        uses: tsubasaogawa/help-md-generator@main
         with:
           binary_path: "/bin/cat"
           cmd: "--help"
