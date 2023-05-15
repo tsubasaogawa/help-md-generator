@@ -43,7 +43,7 @@ runs:
       shell: bash
     - name: Generate md
       run: |
-        cat << EOA > {{ inputs.artifact_path }}
+        cat << EOA > ${{ inputs.artifact_path }}
         # ${{ inputs.title }}
 
         ```bash
