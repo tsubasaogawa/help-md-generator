@@ -16,5 +16,5 @@ jobs:
           binary_path: "/bin/cat"
           cmd: "--help"
           title: "cat help"
-          artifact_path: ".github/workflows/sample_help.md"
+          artifact_path: "sample_help.md"
           working_directory: "."
