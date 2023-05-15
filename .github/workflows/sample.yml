@@ -16,3 +16,5 @@ jobs:
           title: "cat help"
           artifact_path: ".github/workflows/sample_help.md"
           working_directory: "."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
