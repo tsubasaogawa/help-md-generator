@@ -45,12 +45,13 @@ runs:
     - name: Generate md
       run: |
         sed \
-          -e "1i # ${{ inputs.title }}" /tmp/out.log \
+          -e 's/```//g' \
+          -e "1i # ${{ inputs.title }}" \
           -e '2i \\' \
-          -e '3i ```bash' \
+          -e '3i ```' \
           -e '$a ```' \
           -e '$a \\' \
-          > ${{ inputs.artifact_path }}
+          /tmp/out.log > ${{ inputs.artifact_path }}
       shell: bash
       working-directory: ${{ inputs.working_directory }}
     - name: Push
