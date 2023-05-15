@@ -1,0 +1,17 @@
+name: "Test for help.md generator"
+on: [push]
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Test
+        uses: tsubasaogawa/help-md-generator@latest
+        with:
+          binary_path: "/bin/cat"
+          cmd: "--help"
+          title: "cat help"
+          artifact_path: ".github/workflows/sample_help.md"
+          working_directory: "."
