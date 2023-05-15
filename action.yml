@@ -33,8 +33,6 @@ runs:
         test ${{ inputs.title }} != ""
         test ${{ inputs.artifact_path }} != ""
       shell: bash
-    - name: Checkout
-      uses: actions/checkout@v3
     - name: Run binary
       run: ${{ inputs.binary_path }} ${{ inputs.cmd }} > /tmp/out.log
       shell: bash
