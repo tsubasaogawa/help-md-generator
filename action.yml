@@ -33,6 +33,7 @@ runs:
   steps:
     - name: Validation
       run: |
+        set -e
         which "${{ inputs.binary_path }}"
         test "${{ inputs.title }}" != ""
         test "${{ inputs.artifact_path }}" != ""
@@ -49,6 +50,7 @@ runs:
         ```bash
         $(cat /tmp/out.log)
         ```
+        EOA
       shell: bash
       working-directory: ${{ inputs.working_directory }}
     - name: Push
@@ -56,7 +58,9 @@ runs:
       env:
         GHA_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
         GHA_NAME: "github-actions[bot]"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        set -e
         git config --local user.email $GHA_EMAIL
         git config --local user.name $GHA_NAME
         git add ${{ inputs.artifact_path }}
