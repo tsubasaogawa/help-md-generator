@@ -7,7 +7,7 @@ inputs:
     description: "Target binary path (ex. /bin/cat)"
     required: true
   cmd:
-    description: "Additional commands for binary (ex. --help)"
+    description: "Additional commands for the binary (ex. --help)"
     required: false
     default: "--help"
   title:
@@ -19,7 +19,7 @@ inputs:
     required: false
     default: "help.md"
   working_directory:
-    description: "Working directory"
+    description: "Working directory (to repository)"
     required: false
     default: "."
 
@@ -31,7 +31,7 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Validation
+    - name: Validations
       run: |
         set -e
         which "${{ inputs.binary_path }}"
@@ -44,8 +44,13 @@ runs:
       shell: bash
     - name: Generate md
       run: |
+        set -e
+        # Create a directory if does not exist
+        TARGET_DIR="$(dirname ${{ inputs.artifact_path }})"
+        test -e $TARGET_DIR || mkdir -p $TARGET_DIR
+
         sed \
-          -e 's/```//g' \
+          -e 's/```//g' \ # remove code block not to conflict in markdown
           -e "1i # ${{ inputs.title }}" \
           -e '2i \\' \
           -e '3i ```' \
