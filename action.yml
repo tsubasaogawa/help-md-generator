@@ -67,7 +67,7 @@ runs:
           -i.old \
           -e '$a ---' \
           -e '$a ${{ inputs.footer }}' \
-          -e '$a \\'
+          -e '$a \\' \
           ${{ inputs.artifact_path }}
       shell: bash
       working-directory: ${{ inputs.working_directory }}
