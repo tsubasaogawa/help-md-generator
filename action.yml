@@ -52,8 +52,8 @@ runs:
         sed \
           -e 's/```//g' \
           -e "1i # ${{ inputs.title }}" \
-          -e '2i \\' \
-          -e '3i ```' \
+          -e '1i \\' \
+          -e '1i ```' \
           -e '$a ```' \
           -e '$a \\' \
           /tmp/out.log > ${{ inputs.artifact_path }}
