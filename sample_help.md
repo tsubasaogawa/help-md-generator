@@ -1,8 +1,8 @@
 # cat help
-Usage: /bin/cat [OPTION]... [FILE]...
 
-Concatenate FILE(s) to standard output.
 ```
+Usage: /bin/cat [OPTION]... [FILE]...
+Concatenate FILE(s) to standard output.
 
 With no FILE, or when FILE is -, read standard input.
 
