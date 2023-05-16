@@ -2,7 +2,7 @@
 Usage: /bin/cat [OPTION]... [FILE]...
 
 Concatenate FILE(s) to standard output.
-```bash
+```
 
 With no FILE, or when FILE is -, read standard input.
 
