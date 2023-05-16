@@ -50,7 +50,7 @@ runs:
         test -e $TARGET_DIR || mkdir -p $TARGET_DIR
 
         sed \
-          -e 's/```//g' \ # remove code block not to conflict in markdown
+          -e 's/```//g' \
           -e "1i # ${{ inputs.title }}" \
           -e '2i \\' \
           -e '3i ```' \
