@@ -14,7 +14,7 @@ jobs:
         uses: tsubasaogawa/help-md-generator@main
         with:
           binary_path: "/bin/cat"
-          cmd: "--help"
+          cmd: "--help 2>&1"
           title: "cat help"
           artifact_path: "sample_help.md"
           working_directory: "."
