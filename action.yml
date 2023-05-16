@@ -62,7 +62,7 @@ runs:
           -e '$a \\' \
           ${{ runner.temp }}/${{ github.run_number }}.log > ${{ inputs.artifact_path }}
 
-        echo ${{ inputs.footer }} | grep -e '^[[:space:]]*$' || exit 0
+        ! echo ${{ inputs.footer }} | grep -e '^[[:space:]]*$' || exit 0
         sed \
           -i.old \
           -e '$a ---' \
