@@ -10,6 +10,10 @@ inputs:
     description: "Additional commands for the binary (ex. --help)"
     required: false
     default: "--help"
+  redirects:
+    description: "Command redirects"
+    required: false
+    default: "2>&1"
   title:
     description: "Markdown title"
     required: false
@@ -44,7 +48,7 @@ runs:
         test -e "${{ inputs.working_directory }}"
       shell: bash
     - name: Run binary
-      run: ${{ inputs.binary_path }} ${{ inputs.cmd }} > ${{ runner.temp }}/${{ github.run_number }}.log
+      run: ${{ inputs.binary_path }} ${{ inputs.cmd }} > ${{ runner.temp }}/${{ github.run_number }}.log ${{ inputs.redirects }}
       shell: bash
     - name: Generate md
       run: |

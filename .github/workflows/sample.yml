@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - ".github/workflows/sample.yml"
+  workflow_dispatch:
 
 jobs:
   generate:
